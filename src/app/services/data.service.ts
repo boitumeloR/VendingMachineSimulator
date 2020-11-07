@@ -7,6 +7,10 @@ export interface Coin {
   CoinValue: number;
   CoinQuantity: number;
 }
+export interface RefreshResult {
+  Success: boolean;
+  Message: string;
+}
 
 export interface Product {
   ProductID: number;
@@ -22,10 +26,17 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   GetAllCoins(): Observable<Coin[]> {
-    return this.http.get<Coin[]>(`${this.serverDomain}/api/Vending/GetCoins`);
+    return this.http.get<Coin[]>(`${this.serverDomain}/api/Vending/Get Coins`);
+  }
+  RefreshCoins(): Observable<RefreshResult> {
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/RefreshCoins`);
   }
 
   GetProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.serverDomain}/api/Vending/GetCoins`);
+    return this.http.get<Product[]>(`${this.serverDomain}/api/Vending/GetProducts`);
+  }
+
+  RefreshProducts(): Observable<RefreshResult> {
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/RefreshProducts`);
   }
 }

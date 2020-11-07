@@ -30,7 +30,7 @@ export class CoinsComponent implements OnInit, OnChanges {
     // Once input property changes, we refresh the coin information
   }
 
-  refreshCoins() {
+  readCoins() {
     // Get coin information from api
     this.coinData$ = this.dataServ.GetAllCoins();
     this.coinData$.subscribe(data => {
@@ -38,8 +38,15 @@ export class CoinsComponent implements OnInit, OnChanges {
     });
   }
 
+  refreshCoins() {
+    // refresh coin quantity to possibly make more purchases
+  }
+
   enterCoin(enteredCoin: Coin): void {
+    const coinToUpdate = this.coinData.find(c => c.CoinID === enteredCoin.CoinID);
+    // minus coin quantity in database
     this.coinClicked.emit(enteredCoin);
+    // this.readCoins();
   }
 
 }

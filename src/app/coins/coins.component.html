@@ -1,0 +1,8 @@
+<button mat-fab color="accent" (click)="refreshCoins()">
+    <mat-icon>refresh</mat-icon>
+</button>
+<div class="coins" *ngFor="let item of coinData">
+    <button *ngIf="item.Quantity > 0" mat-stroked-button color="primary" (click)="enterCoin(item)">
+      {{item.CoinValue | currency:'ZAR'}}  
+    </button>
+</div>
