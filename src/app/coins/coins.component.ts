@@ -24,7 +24,7 @@ export class CoinsComponent implements OnInit, OnChanges {
   refreshed$: Observable<RefreshResult>;
   loading = false;
 
-  @Input() refreshed: number;
+  @Input() refreshed: boolean;
   @Input() returnedCoin: Coin;
   @Output() coinClicked = new EventEmitter<Coin>();
   constructor(private dataServ: DataService, private dialog: MatDialog) { }

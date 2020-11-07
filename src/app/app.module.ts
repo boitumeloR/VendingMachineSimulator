@@ -11,6 +11,7 @@ import { MessageModalComponent } from './modals/message-modal/message-modal.comp
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoaderComponent } from './loader/loader.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatTable, MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatCardModule} from '@angular/material/card';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
