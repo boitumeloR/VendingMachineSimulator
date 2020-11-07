@@ -1,0 +1,19 @@
+.example-card {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+.coins {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.refresher {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+}

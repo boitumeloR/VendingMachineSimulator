@@ -35,9 +35,10 @@ export class CoinsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // Once input property changes, we refresh the coin information
-    if (changes.returnedCoin.currentValue !== changes.returnedCoin.previousValue) {
+    if (!changes.returnedCoin.isFirstChange()) {
       this.revertCoinQuantity(this.returnedCoin);
     }
+
     if (!changes.refreshed.isFirstChange()) {
       this.refreshCoins();
     }

@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MessageModalComponent } from './modals/message-modal/message-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoaderComponent } from './loader/loader.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoaderComponent } from './loader/loader.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

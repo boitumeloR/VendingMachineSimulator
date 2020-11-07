@@ -1,6 +1,17 @@
 <!-- <router-outlet></router-outlet> -->
 <app-coins 
-(coinClicked)='appendCoinvalue($event)''
-[refreshed] = 'refreshed'
-[returnedCoin] = 'returnedCoin'
+(coinClicked)="appendCoinvalue($event)"
+[refreshed] = "refreshed"
+[returnedCoin] = "returnedCoin"
 ></app-coins>
+
+<div class="purchasePool">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Input / Output Pool</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card>
+</div>
