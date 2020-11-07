@@ -25,21 +25,31 @@ export class CoinsComponent implements OnInit, OnChanges {
   loading = false;
 
   @Input() refreshed: number;
+  @Input() returnedCoin: Coin;
   @Output() coinClicked = new EventEmitter<Coin>();
   constructor(private dataServ: DataService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    // this.refreshCoins();
+    this.readCoins(true);
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     // Once input property changes, we refresh the coin information
-    this.refreshCoins();
+    if (changes.returnedCoin.currentValue !== changes.returnedCoin.previousValue) {
+      this.revertCoinQuantity(this.returnedCoin);
+    }
+    if (!changes.refreshed.isFirstChange()) {
+      this.refreshCoins();
+    }
   }
 
-  readCoins() {
+  readCoins(withLoading: boolean): void{
+    // View loader if parameter true
+    if (withLoading) {
+      this.loading = true;
+    }
+
     // Get coin information from api
-    this.loading = true;
     this.coinData$ = this.dataServ.GetAllCoins();
     this.coinData$.subscribe(data => {
       this.coinData = data;
@@ -48,7 +58,7 @@ export class CoinsComponent implements OnInit, OnChanges {
       this.loading = false;
       const display: DisplayMessage = {
         title: 'Error!',
-        message: 'An error occured on our servers, please tery again later.'
+        message: 'An error occured on our servers, please try again later.'
       };
       this.dialog.open(MessageModalComponent, {
         data: { initialData: display }
@@ -58,10 +68,11 @@ export class CoinsComponent implements OnInit, OnChanges {
 
   refreshCoins() {
     // refresh coin quantity to possibly make more purchases
+    this.loading = true;
     this.refreshed$ = this.dataServ.RefreshCoins();
     this.refreshed$.subscribe(res => {
       if (res.Success) {
-        this.readCoins();
+        this.readCoins(false);
       } else {
         // Message to be displayed on the modal
         this.loading =  false;
@@ -86,10 +97,39 @@ export class CoinsComponent implements OnInit, OnChanges {
   }
 
   enterCoin(enteredCoin: Coin): void {
-    const coinToUpdate = this.coinData.find(c => c.CoinID === enteredCoin.CoinID);
     // minus coin quantity in database
-    this.coinClicked.emit(enteredCoin);
-    // this.readCoins();
+    this.refreshed$ = this.dataServ.ReduceCoinQuantity(enteredCoin);
+    this.refreshed$.subscribe(res => {
+      if (res.Success) {
+        this.readCoins(false);
+        this.coinClicked.emit(enteredCoin);
+      } else {
+        const display: DisplayMessage = {
+          title: 'Error!',
+          message: res.Message
+        };
+        this.dialog.open(MessageModalComponent, {
+          data: { initialData: display }
+        });
+      }
+    });
   }
 
+  revertCoinQuantity(coin: Coin) {
+    // increase coin quantity in database
+    this.refreshed$ = this.dataServ.IncreaseCoinQuantity(coin);
+    this.refreshed$.subscribe(res => {
+      if (res.Success) {
+        this.readCoins(false);
+      } else {
+        const display: DisplayMessage = {
+          title: 'Error!',
+          message: res.Message
+        };
+        this.dialog.open(MessageModalComponent, {
+          data: { initialData: display }
+        });
+      }
+    });
+  }
 }

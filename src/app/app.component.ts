@@ -10,6 +10,9 @@ export class AppComponent {
   amountTendered = 0;
   title = 'VendingMachine';
 
+  refreshed = 0;
+  returnedCoin: Coin;
+
   appendCoinValue(coin: Coin): void {
     this.amountTendered += coin.CoinValue;
   }

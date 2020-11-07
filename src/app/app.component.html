@@ -1,2 +1,6 @@
 <!-- <router-outlet></router-outlet> -->
-<app-coins (coinClicked)="appendCoinvalue($event)"></app-coins>
+<app-coins 
+(coinClicked)='appendCoinvalue($event)''
+[refreshed] = 'refreshed'
+[returnedCoin] = 'returnedCoin'
+></app-coins>
