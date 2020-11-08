@@ -11,7 +11,14 @@
       <mat-card-title>Input / Output Pool</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-
+      <div class = "product-change">
+        <div class="product">
+          {{purchasedProduct}}
+        </div>
+        <div class="change">
+          {{amountTendered}}
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
@@ -23,30 +30,35 @@
   <div class="example-table-container">
 
     <table mat-table [dataSource]="products" class="example-table">
-      <!-- Number Column -->
+      <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Product Name</th>
         <td mat-cell *matCellDef="let row">{{row.ProductName}}</td>
       </ng-container>
 
-      <!-- Title Column -->
+      <!-- Price Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef>Product Price</th>
         <td mat-cell *matCellDef="let row">{{row.ProductPrice | currency: 'ZAR'}}</td>
       </ng-container>
 
-      <!-- State Column -->
+      <!-- Quantity Column -->
       <ng-container matColumnDef="quantity">
         <th mat-header-cell *matHeaderCellDef>Product Quantity</th>
         <td mat-cell *matCellDef="let row">{{row.ProductQuantity}}</td>
       </ng-container>
 
-      <!-- Created Column -->
+      <!-- Purchase Column -->
       <ng-container matColumnDef="purchase">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-          Created
+        <th mat-header-cell *matHeaderCellDef>
+          Purchase
         </th>
-        <td mat-cell *matCellDef="let row">{{row.created_at | date}}</td>
+        <td mat-cell *matCellDef="let row">
+          <button [disabled] = "row.ProductPrice > amountTendered"
+          (click)="purchaseItem(row)">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

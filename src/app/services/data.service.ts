@@ -54,7 +54,7 @@ export class DataService {
     return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/RefreshProducts`);
   }
 
-  ReduceProductQuantity(coin: Coin): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceCoin`, coin, this.httpOptions);
+  ReduceProductQuantity(product: Product): Observable<RefreshResult> {
+    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceProduct`, product, this.httpOptions);
   }
 }

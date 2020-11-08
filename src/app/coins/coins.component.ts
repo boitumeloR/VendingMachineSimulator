@@ -46,10 +46,7 @@ export class CoinsComponent implements OnInit, OnChanges {
 
   readCoins(withLoading: boolean): void{
     // View loader if parameter true
-    if (withLoading) {
-      this.loading = true;
-    }
-
+    this.loading = withLoading;
     // Get coin information from api
     this.coinData$ = this.dataServ.GetAllCoins();
     this.coinData$.subscribe(data => {
