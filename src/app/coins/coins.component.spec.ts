@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DataService } from '../services/data.service';
 
 import { CoinsComponent } from './coins.component';
 
@@ -8,7 +11,9 @@ describe('CoinsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoinsComponent ]
+      declarations: [ CoinsComponent ],
+      imports: [MatDialogModule, HttpClientTestingModule],
+      providers: [DataService]
     })
     .compileComponents();
   }));
@@ -24,7 +29,7 @@ describe('CoinsComponent', () => {
   });
 
   it ('should read coins', () => {
-    expect(component.coinData).toBeTruthy();
+    expect(fixture.componentInstance.coinData).toBeTruthy();
   });
 
   it ('should read 4 coins', () => {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -24,11 +24,6 @@ export interface Product {
 export class DataService {
 
   serverDomain = 'https://localhost:44394';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
   constructor(private http: HttpClient) { }
 
   GetAllCoins(): Observable<Coin[]> {
