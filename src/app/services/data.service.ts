@@ -39,11 +39,11 @@ export class DataService {
   }
 
   ReduceCoinQuantity(coin: Coin): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceCoin`, coin, this.httpOptions);
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceCoin?CoinID= ${coin.CoinID}`);
   }
 
   IncreaseCoinQuantity(coin: Coin): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/IncreaseCoin`, coin, this.httpOptions);
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/IncreaseCoin?CoinID= ${coin.CoinID}`);
   }
 
   GetProducts(): Observable<Product[]> {
@@ -55,6 +55,6 @@ export class DataService {
   }
 
   ReduceProductQuantity(product: Product): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceProduct`, product, this.httpOptions);
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceProduct?ProductID=${product.ProductID}`);
   }
 }
