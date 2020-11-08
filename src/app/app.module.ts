@@ -36,7 +36,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatTableModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

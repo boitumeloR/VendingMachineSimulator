@@ -105,6 +105,7 @@ export class AppComponent implements OnInit{
     // Decrease product quantity in api and read products
     this.change = this.amountTendered - product.ProductPrice;
     this.amountTendered = null;
+    this.coinPool = [];
     this.purchased$ = this.dataServ.ReduceProductQuantity(product);
     this.purchased$.subscribe(result => {
       if (result.Success) {

@@ -22,4 +22,13 @@ describe('CoinsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it ('should read coins', () => {
+    expect(component.coinData).toBeTruthy();
+  });
+
+  it ('should read 4 coins', () => {
+    fixture.detectChanges();
+    expect(component.coinData.length).toBe(4);
+  });
 });
