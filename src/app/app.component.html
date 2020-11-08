@@ -1,6 +1,14 @@
-<!-- <router-outlet></router-outlet> -->
+<mat-toolbar color="warn">
+  <mat-tooolbar-row>
+    <span>Vending Machine</span>
+    <button mat-button class="example-icon favorite-icon" (click)="refreshAll()">
+      Refresh All<mat-icon>cached</mat-icon>
+    </button>
+  </mat-tooolbar-row>
+</mat-toolbar>
+
 <app-coins 
-(coinClicked)="appendCoinvalue($event)"
+(coinClicked)="appendCoinValue($event)"
 [refreshed] = "refreshed"
 [returnedCoin] = "returnedCoin"
 ></app-coins>

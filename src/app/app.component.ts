@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit{
   products: Product[] = [];
   purchasedProduct: Product;
   loading = false;
-  refreshed: boolean;
+  refreshed =  false;
   returnedCoin: Coin;
   coinPool: Coin[] = [];
 
@@ -42,10 +43,39 @@ export class AppComponent implements OnInit{
     });
   }
 
+  refreshProducts() {
+    this.loading = true;
+    this.purchased$ = this.dataServ.RefreshProducts();
+    this.purchased$.subscribe(res => {
+      if (res.Success) {
+        this.readProducts(true);
+      } else {
+        // Message to be displayed on the modal
+        this.loading =  false;
+        const display: DisplayMessage = {
+          title: 'Error!',
+          message: res.Message
+        };
+        this.dialog.open(MessageModalComponent, {
+          data: { initialData: display }
+        });
+      }
+    }, (error: HttpErrorResponse) => {
+      this.loading = false;
+      const display: DisplayMessage = {
+        title: 'Error!',
+        message: 'An error occured on our servers, please tery again later.'
+      };
+      this.dialog.open(MessageModalComponent, {
+        data: { initialData: display }
+      });
+    });
+  }
+
   refreshAll() {
-    this.refreshed = true;
+    this.refreshed = !this.refreshed;
     this.amountTendered = 0;
-    this.readProducts(true);
+    this.refreshProducts();
   }
 
   purchaseItem(product: Product) {

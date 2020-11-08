@@ -2,6 +2,7 @@
     margin: 0 auto;
     text-align: center;
     width: 70%;
+    margin-bottom: 30px;
 }
 
 .example-container {
@@ -29,5 +30,11 @@ table {
     z-index: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.mat-toolbar {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
 }

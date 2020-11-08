@@ -12,6 +12,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { LoaderComponent } from './loader/loader.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatTable, MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +33,10 @@ import {MatTable, MatTableModule} from '@angular/material/table';
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
