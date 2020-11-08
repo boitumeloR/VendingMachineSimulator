@@ -1,16 +1,14 @@
 <mat-toolbar color="warn">
-  <mat-tooolbar-row>
     <span>Vending Machine</span>
-    <button mat-button class="example-icon favorite-icon" (click)="refreshAll()">
-      Refresh All<mat-icon>cached</mat-icon>
+    <button mat-button class="example-icon favorite-icon" color="accent" (click)="refreshAll()">
+      Refresh All <mat-icon>cached</mat-icon>
     </button>
-  </mat-tooolbar-row>
 </mat-toolbar>
 
 <app-coins 
 (coinClicked)="appendCoinValue($event)"
 [refreshed] = "refreshed"
-[returnedCoin] = "returnedCoin"
+[returnedCoins] = "returnedCoins"
 ></app-coins>
 
 <div class="purchasePool">
@@ -20,11 +18,16 @@
     </mat-card-header>
     <mat-card-content>
       <div class = "product-change">
-        <div class="product">
-          {{purchasedProduct}}
+        <div class="product" *ngIf="purchasedProduct">
+          <h3>You Bought: {{purchasedProduct.ProductName}}</h3>
         </div>
-        <div class="change">
-          {{amountTendered}}
+        <div class="tendered" *ngIf="amountTendered">
+          Amount Tendered: {{amountTendered | currency:  'ZAR'}}
+          <br>
+          <button mat-raised-button (click)="returnAllCoins()">Return Coins Tendered</button>
+        </div>
+        <div class="change" *ngIf="change">
+          Change: {{change | currency:  'ZAR'}}
         </div>
       </div>
     </mat-card-content>
@@ -74,5 +77,5 @@
     </table>
   </div>
 
-  <mat-paginator [length]="products.length" [pageSize]="5"></mat-paginator>
+  <!-- <mat-paginator [length]="products.length" [pageSize]="5"></mat-paginator> -->
 </div>
