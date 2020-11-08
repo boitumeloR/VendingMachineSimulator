@@ -23,7 +23,7 @@ export interface Product {
 })
 export class DataService {
 
-  serverDomain = 'https://localhost:44371';
+  serverDomain = 'https://localhost:44394';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
