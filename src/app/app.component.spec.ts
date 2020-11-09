@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed, async } from '@angular/core/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
@@ -6,7 +8,9 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule,
+        MatDialogModule
       ],
       declarations: [
         AppComponent
@@ -20,16 +24,20 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'VendingMachine'`, () => {
+  it ('should have a I/O pool', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('VendingMachine');
+    const pool = fixture.nativeElement.querySelector('.purchasePool');
+    expect(pool).toBeTruthy();
   });
 
-  it('should render title', () => {
+  it ('should have a refresh all button', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('VendingMachine app is running!');
+    const refresh = fixture.nativeElement.querySelector('.refreshAll');
+    expect(refresh).toBeTruthy();
+  });
+  it ('should start with no money tendered', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
+    expect(component.amountTendered).toEqual(0);
   });
 });
