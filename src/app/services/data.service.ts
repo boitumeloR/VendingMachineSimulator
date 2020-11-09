@@ -23,7 +23,7 @@ export interface Product {
 })
 export class DataService {
 
-  serverDomain = 'https://localhost:44394';
+  serverDomain = 'https://vendingmachineapi.azurewebsites.net';
   constructor(private http: HttpClient) { }
 
   GetAllCoins(): Observable<Coin[]> {
