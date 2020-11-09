@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -24,11 +24,6 @@ export interface Product {
 export class DataService {
 
   serverDomain = 'https://localhost:44394';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
   constructor(private http: HttpClient) { }
 
   GetAllCoins(): Observable<Coin[]> {
@@ -39,11 +34,11 @@ export class DataService {
   }
 
   ReduceCoinQuantity(coin: Coin): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceCoin`, coin, this.httpOptions);
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceCoin?CoinID= ${coin.CoinID}`);
   }
 
   IncreaseCoinQuantity(coin: Coin): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/IncreaseCoin`, coin, this.httpOptions);
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/IncreaseCoin?CoinID= ${coin.CoinID}`);
   }
 
   GetProducts(): Observable<Product[]> {
@@ -55,6 +50,6 @@ export class DataService {
   }
 
   ReduceProductQuantity(product: Product): Observable<RefreshResult> {
-    return this.http.post<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceProduct`, product, this.httpOptions);
+    return this.http.get<RefreshResult>(`${this.serverDomain}/api/Vending/ReduceProduct?ProductID=${product.ProductID}`);
   }
 }

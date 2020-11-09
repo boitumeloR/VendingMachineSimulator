@@ -25,7 +25,7 @@ export class CoinsComponent implements OnInit, OnChanges {
   loading = false;
 
   @Input() refreshed: boolean;
-  @Input() returnedCoin: Coin;
+  @Input() returnedCoins: Coin[];
   @Output() coinClicked = new EventEmitter<Coin>();
   constructor(private dataServ: DataService, private dialog: MatDialog) { }
 
@@ -34,13 +34,20 @@ export class CoinsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // Once input property changes, we refresh the coin information
-    if (!changes.returnedCoin.isFirstChange()) {
-      this.revertCoinQuantity(this.returnedCoin);
+    console.log(changes);
+    if (changes.refreshed) {
+      const refresh = changes.refreshed.firstChange;
+      if (refresh === false) {
+        this.refreshCoins();
+      }
     }
 
-    if (!changes.refreshed.isFirstChange()) {
-      this.refreshCoins();
+    if (changes.returnedCoins) {
+      const returned = changes.returnedCoins.firstChange;
+      if (returned === false) {
+        this.revertCoinQuantity(this.returnedCoins);
+        this.returnedCoins = [];
+      }
     }
   }
 
@@ -113,21 +120,23 @@ export class CoinsComponent implements OnInit, OnChanges {
     });
   }
 
-  revertCoinQuantity(coin: Coin) {
+  revertCoinQuantity(coins: Coin[]) {
     // increase coin quantity in database
-    this.refreshed$ = this.dataServ.IncreaseCoinQuantity(coin);
-    this.refreshed$.subscribe(res => {
-      if (res.Success) {
-        this.readCoins(false);
-      } else {
-        const display: DisplayMessage = {
-          title: 'Error!',
-          message: res.Message
-        };
-        this.dialog.open(MessageModalComponent, {
-          data: { initialData: display }
-        });
-      }
+    coins.forEach(coin => {
+      this.refreshed$ = this.dataServ.IncreaseCoinQuantity(coin);
+      this.refreshed$.subscribe(res => {
+        if (res.Success) {
+          this.readCoins(false);
+        } else {
+          const display: DisplayMessage = {
+            title: 'Error!',
+            message: res.Message
+          };
+          this.dialog.open(MessageModalComponent, {
+            data: { initialData: display }
+          });
+        }
+      });
     });
   }
 }
