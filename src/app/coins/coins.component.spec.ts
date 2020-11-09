@@ -28,12 +28,17 @@ describe('CoinsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('should read coins', () => {
-    expect(fixture.componentInstance.coinData).toBeTruthy();
+  it ('should have loading as true, while fetching data', () => {
+    expect(component.loading).toBe(true);
   });
 
-  it ('should read 4 coins', () => {
-    fixture.detectChanges();
-    expect(component.coinData.length).toBe(4);
+  it ('should have 4 mock coins', () => {
+    expect(component.mockData.length).toBe(4);
   });
+
+  it ('should have a refresh coins button', () => {
+    const ref = fixture.nativeElement.querySelector('.refreshCoins');
+    expect(ref).toBeTruthy();
+  });
+
 });

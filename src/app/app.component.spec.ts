@@ -24,16 +24,20 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  // it(`should have as title 'VendingMachine'`, () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('VendingMachine');
-  // });
+  it ('should have a I/O pool', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const pool = fixture.nativeElement.querySelector('.purchasePool');
+    expect(pool).toBeTruthy();
+  });
 
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement;
-  //   expect(compiled.querySelector('.content span').textContent).toContain('VendingMachine app is running!');
-  // });
+  it ('should have a refresh all button', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const refresh = fixture.nativeElement.querySelector('.refreshAll');
+    expect(refresh).toBeTruthy();
+  });
+  it ('should start with no money tendered', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
+    expect(component.amountTendered).toEqual(0);
+  });
 });
